@@ -5,15 +5,20 @@ import { useAuth } from "../context/AuthContext";
 
 export default function ChatRoomPage() {
   const { chatId } = useParams();
-  const { messages, sendMessage } = useSocket();
+  const { messages, sendMessage, setActiveChatId } = useSocket();
   const { userId } = useAuth();
   const [content, setContent] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const conversation = messages.filter(
-    (m) => m.sender_id === chatId || m.receiver_id === chatId
+    (m) => m.from === chatId || m.to === chatId
   );
-
+  useEffect(() => {
+    if (!chatId) return;
+    setActiveChatId(chatId);
+    return () => setActiveChatId(null);
+  }, [chatId]);
+  
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [conversation.length]);
@@ -31,13 +36,13 @@ export default function ChatRoomPage() {
           <div
             key={m.id}
             style={{
-              textAlign: m.sender_id === userId ? "right" : "left",
+              textAlign: m.from === userId ? "right" : "left",
               margin: "4px 0",
             }}
           >
             <span
               style={{
-                background: m.sender_id === userId ? "#daf1da" : "#eee",
+                background: m.from === userId ? "#daf1da" : "#eee",
                 padding: "6px 10px",
                 borderRadius: 8,
                 display: "inline-block",
