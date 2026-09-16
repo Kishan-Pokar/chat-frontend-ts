@@ -1,9 +1,10 @@
-import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState,useEffect, type FormEvent } from "react";
+import { useNavigate,Link,useLocation } from "react-router-dom";
 import { loginUser } from "../api/auth.api";
 import { getAllUsers } from "../api/users.api";
 import { getUserIdFromToken } from "../utils/jwt";
 import { useAuth } from "../context/AuthContext";
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,16 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
+  const location = useLocation();
+  const [showRegistrationSuccess] = useState(
+    () => Boolean(location.state?.registrationSuccess)
+  );
   
+  useEffect(() => {
+    if (showRegistrationSuccess) {
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, []);
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
@@ -48,7 +58,7 @@ export default function LoginPage() {
       <h1>Login</h1>
       <input
         type="email"
-        value={email}
+          value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
         required
@@ -64,6 +74,14 @@ export default function LoginPage() {
       <button type="submit" disabled={loading}>
         {loading ? "Logging in..." : "Login"}
       </button>
+      <p>
+        Don't have an account? <Link to="/register">Register</Link>
+      </p>
+      {showRegistrationSuccess && (
+        <p style={{ color: "green" }}>
+          Registration successful. Login to continue.
+        </p>
+      )}
     </form>
   );
 }
