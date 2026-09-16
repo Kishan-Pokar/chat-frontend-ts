@@ -54,34 +54,44 @@ export default function LoginPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Login</h1>
-      <input
-        type="email"
-          value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <button type="submit" disabled={loading}>
-        {loading ? "Logging in..." : "Login"}
-      </button>
-      <p>
-        Don't have an account? <Link to="/register">Register</Link>
-      </p>
-      {showRegistrationSuccess && (
-        <p style={{ color: "green" }}>
-          Registration successful. Login to continue.
+    <div className="auth-page">
+      <div className="auth-card">
+        <h1 className="auth-title">Welcome back</h1>
+        <p className="auth-subtitle">Log in to continue your conversations.</p>
+
+        <form className="auth-form" onSubmit={handleSubmit}>
+          {showRegistrationSuccess && (
+            <p className="form-message success">
+              Registration successful. Login to continue.
+            </p>
+          )}
+
+          <input
+            className="text-input"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+          <input
+            className="text-input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+          {error && <p className="form-message error">{error}</p>}
+          <button className="primary-button" type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+
+        <p className="auth-switch">
+          Don't have an account? <Link to="/register">Register</Link>
         </p>
-      )}
-    </form>
+      </div>
+    </div>
   );
 }

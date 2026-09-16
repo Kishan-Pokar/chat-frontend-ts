@@ -27,36 +27,46 @@ export default function RegisterPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Register</h1>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-        required
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <button type="submit" disabled={loading}>
-        {loading ? "Registering..." : "Register"}
-      </button>
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
-    </form>
-  );
+    <div className="auth-page">
+        <div className="auth-card">
+        <h1 className="auth-title">Create your account</h1>
+        <p className="auth-subtitle">Start messaging in a minute.</p>
+
+        <form className="auth-form" onSubmit={handleSubmit}>
+            <input
+            className="text-input"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username"
+            required
+            />
+            <input
+            className="text-input"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+            />
+            <input
+            className="text-input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+            />
+            {error && <p className="form-message error">{error}</p>}
+            <button className="primary-button" type="submit" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+            </button>
+        </form>
+
+        <p className="auth-switch">
+            Already have an account? <Link to="/login">Login</Link>
+        </p>
+        </div>
+    </div>
+    );
 }
