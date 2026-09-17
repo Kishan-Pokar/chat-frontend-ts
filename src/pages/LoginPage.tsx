@@ -4,6 +4,7 @@ import { loginUser } from "../api/auth.api";
 import { getAllUsers } from "../api/users.api";
 import { getUserIdFromToken } from "../utils/jwt";
 import { useAuth } from "../context/AuthContext";
+import AuthHeroArt from "../components/ui/AuthHeroArt";
 
 
 export default function LoginPage() {
@@ -54,7 +55,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="auth-page">
+  <div className="auth-page">
+    <div className="auth-hero">
+      <AuthHeroArt />
+      <div className="auth-hero-content">
+        <h2 className="auth-hero-title">Message. Instantly.</h2>
+      </div>
+    </div>
+
+    <div className="auth-form-panel">
       <div className="auth-card">
         <h1 className="auth-title">Welcome back</h1>
         <p className="auth-subtitle">Log in to continue your conversations.</p>
@@ -93,5 +102,6 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
-  );
+  </div>
+);
 }

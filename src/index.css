@@ -1,45 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg: #10141A;
-  --surface: #161B22;
-  --surface-hover: #1C2330;
-  --border: #242C38;
-  --text: #EAEFF5;
-  --text-muted: #8992A3;
+  --bg-app: #EEF1F6;
+  --surface: #FFFFFF;
+  --surface-hover: #F1F4F9;
+  --border: #E1E5EC;
+  --text: #1A2233;
+  --text-muted: #6B7387;
   --accent: #4C7CF0;
   --accent-hover: #3D68D8;
-  --online: #34D399;
-  --danger: #F0654C;
+  --online: #22C55E;
+  --danger: #E4483A;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html, body, #root {
-  height: 100%;
-  margin: 0;
-}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: var(--bg);
+  background: var(--bg-app);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
 
-input, button {
-  font-family: inherit;
-}
+input, button { font-family: inherit; }
+button { cursor: pointer; }
 
-button {
-  cursor: pointer;
-}
-
-button:focus-visible,
-input:focus-visible,
-a:focus-visible {
+button:focus-visible, input:focus-visible, a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -48,6 +35,55 @@ a:focus-visible {
 
 .auth-page {
   height: 100%;
+  display: flex;
+}
+
+.auth-hero {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 56px;
+  color: white;
+  background: linear-gradient(160deg, #1B2739 0%, #12192A 100%);
+}
+
+.auth-hero-art {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  height: 100%;
+  width: 65%;
+  opacity: 0.95;
+}
+
+
+
+
+.auth-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 340px;
+}
+
+.auth-hero-title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+
+.auth-hero-subtitle {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.auth-form-panel {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,9 +123,7 @@ a:focus-visible {
   width: 100%;
 }
 
-.text-input::placeholder {
-  color: var(--text-muted);
-}
+.text-input::placeholder { color: var(--text-muted); }
 
 .primary-button {
   background: var(--accent);
@@ -103,14 +137,8 @@ a:focus-visible {
   transition: background 0.15s ease;
 }
 
-.primary-button:hover:not(:disabled) {
-  background: var(--accent-hover);
-}
-
-.primary-button:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
+.primary-button:hover:not(:disabled) { background: var(--accent-hover); }
+.primary-button:disabled { opacity: 0.6; cursor: default; }
 
 .auth-switch {
   margin-top: 20px;
@@ -118,14 +146,8 @@ a:focus-visible {
   color: var(--text-muted);
 }
 
-.auth-switch a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.auth-switch a:hover {
-  text-decoration: underline;
-}
+.auth-switch a { color: var(--accent); text-decoration: none; }
+.auth-switch a:hover { text-decoration: underline; }
 
 .form-message {
   font-size: 13px;
@@ -133,29 +155,21 @@ a:focus-visible {
   border-radius: 6px;
 }
 
-.form-message.success {
-  background: rgba(52, 211, 153, 0.12);
-  color: var(--online);
-}
-
-.form-message.error {
-  background: rgba(240, 101, 76, 0.12);
-  color: var(--danger);
-}
+.form-message.success { background: rgba(34, 197, 94, 0.1); color: #16833F; }
+.form-message.error { background: rgba(228, 72, 58, 0.1); color: var(--danger); }
 
 /* ---------- App shell ---------- */
 
-.app-shell {
-  display: flex;
-  height: 100vh;
-}
+.app-shell { display: flex; height: 100vh; }
 
 .sidebar {
   width: 280px;
   flex-shrink: 0;
-  border-right: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: 1px 0 0 var(--border), 2px 0 8px rgba(20, 30, 60, 0.04);
   display: flex;
   flex-direction: column;
+  z-index: 1;
 }
 
 .sidebar-header {
@@ -166,16 +180,8 @@ a:focus-visible {
   border-bottom: 1px solid var(--border);
 }
 
-.sidebar-user {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.sidebar-username {
-  font-size: 14px;
-  font-weight: 600;
-}
+.sidebar-user { display: flex; align-items: center; gap: 10px; }
+.sidebar-username { font-size: 14px; font-weight: 600; }
 
 .icon-button {
   background: none;
@@ -186,18 +192,9 @@ a:focus-visible {
   border-radius: 6px;
 }
 
-.icon-button:hover {
-  background: var(--surface-hover);
-  color: var(--text);
-}
+.icon-button:hover { background: var(--surface-hover); color: var(--text); }
 
-.user-list {
-  list-style: none;
-  margin: 0;
-  padding: 8px;
-  overflow-y: auto;
-  flex: 1;
-}
+.user-list { list-style: none; margin: 0; padding: 8px; overflow-y: auto; flex: 1; }
 
 .user-list-item a {
   display: flex;
@@ -209,13 +206,8 @@ a:focus-visible {
   color: var(--text);
 }
 
-.user-list-item a:hover {
-  background: var(--surface-hover);
-}
-
-.user-list-item a.active {
-  background: var(--surface);
-}
+.user-list-item a:hover { background: var(--surface-hover); }
+.user-list-item a.active { background: #E8EDFC; }
 
 .user-list-name {
   flex: 1;
@@ -244,6 +236,9 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  background-color: var(--bg-app);
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
 .empty-state {
@@ -261,8 +256,8 @@ a:focus-visible {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--surface-hover);
-  color: var(--text);
+  background: #E8EDFC;
+  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -272,11 +267,7 @@ a:focus-visible {
   position: relative;
 }
 
-.avatar-sm {
-  width: 28px;
-  height: 28px;
-  font-size: 12px;
-}
+.avatar-sm { width: 28px; height: 28px; font-size: 12px; }
 
 .presence-dot {
   position: absolute;
@@ -286,92 +277,84 @@ a:focus-visible {
   height: 10px;
   border-radius: 50%;
   background: var(--online);
-  border: 2px solid var(--bg);
+  border: 2px solid var(--surface);
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
-  50% { box-shadow: 0 0 0 4px rgba(52, 211, 153, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+  50% { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0); }
 }
 
-.presence-dot.live {
-  animation: pulse 2s ease-in-out infinite;
-}
+.presence-dot.live { animation: pulse 2s ease-in-out infinite; }
 
 /* ---------- Chat room ---------- */
 
-.chat-room {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
+.chat-room { display: flex; flex-direction: column; height: 100%; }
 
 .chat-header {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 14px 20px;
+  background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
 
-.chat-header-name {
-  font-size: 15px;
-  font-weight: 600;
-}
+.chat-header-name { font-size: 15px; font-weight: 600; }
 
 .message-list {
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
-.message-row {
-  display: flex;
-}
-
-.message-row.own {
-  justify-content: flex-end;
-}
+.message-row { display: flex; }
+.message-row.own { justify-content: flex-end; }
 
 .message-bubble {
   max-width: 60%;
-  padding: 9px 13px;
+  padding: 10px 14px;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.45;
   background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 14px 14px 14px 4px;
+  box-shadow: 0 1px 2px rgba(20, 30, 60, 0.04);
 }
 
 .message-row.own .message-bubble {
   background: var(--accent);
   color: white;
+  border: none;
   border-radius: 14px 14px 4px 14px;
 }
 
 .composer {
   display: flex;
-  gap: 8px;
-  padding: 16px 20px;
+  gap: 10px;
+  padding: 18px 20px;
+  background: var(--surface);
   border-top: 1px solid var(--border);
 }
 
 .composer .text-input {
   flex: 1;
+  padding: 14px 18px;
+  font-size: 15px;
+  border-radius: 24px;
 }
 
 .send-button {
   background: var(--accent);
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 0 18px;
-  font-size: 14px;
+  border-radius: 24px;
+  padding: 0 26px;
+  font-size: 15px;
   font-weight: 500;
 }
 
-.send-button:hover {
-  background: var(--accent-hover);
-}
+.send-button:hover { background: var(--accent-hover); }
