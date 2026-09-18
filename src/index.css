@@ -236,9 +236,12 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  background-color: var(--bg-app);
-  background-image: radial-gradient(var(--border) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-image:
+    linear-gradient(rgba(208, 244, 5, 0.85), rgba(238, 241, 246, 0.85)),
+    url('/images/chat-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .empty-state {
@@ -246,7 +249,8 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
+  /* color: var(--text-muted); */
+  font-weight: bold;
   font-size: 14px;
 }
 
