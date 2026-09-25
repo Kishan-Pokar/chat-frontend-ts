@@ -6,20 +6,20 @@ import ProtectedRoute from "./ProtectedRoute";
 import RegisterPage from "../pages/RegisterPage";
 
 export default function AppRouter() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
 
-        <Route element={<ProtectedRoute />}>
-          <Route path="/chats" element={<ChatListPage />}>
-            <Route path=":chatId" element={<ChatRoomPage />} />
-          </Route>
-        </Route>
+                <Route element={<ProtectedRoute />}>
+                    <Route path="/chats" element={<ChatListPage />}>
+                        <Route path=":chatId" element={<ChatRoomPage />} />
+                    </Route>
+                </Route>
 
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </BrowserRouter>
-  );
+                <Route path="*" element={<Navigate to="/login" replace />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
