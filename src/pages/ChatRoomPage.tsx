@@ -7,17 +7,18 @@ import { type User } from "../types/user.types";
 import { getChatHistory } from "../api/messages.api";
 import Avatar from "../components/ui/Avatar";
 import { type Message } from "../types/message.types";
+import { formatMessageTime, formatDayLabel } from "../utils/formatTime";
 
 function renderTicks(status: Message["status"]) {
     const tickStyle = { fontSize: 15, fontWeight: 700 };
 
     if (status === "READ") {
-        return <span style={{ ...tickStyle, color: "#f97a1f" }}> ✓✓</span>; 
+        return <span style={{ ...tickStyle, color: "#f97a1f" }}> ✓✓</span>;
     }
     if (status === "DELIVERED") {
-        return <span style={{ ...tickStyle, color: "#FFFFFF" }}> ✓✓</span>; 
+        return <span style={{ ...tickStyle, color: "#FFFFFF" }}> ✓✓</span>;
     }
-    return <span style={{ ...tickStyle, color: "rgba(255,255,255,0.55)" }}> ✓</span>; 
+    return <span style={{ ...tickStyle, color: "rgba(255,255,255,0.55)" }}> ✓</span>;
 }
 
 export default function ChatRoomPage() {
@@ -85,17 +86,30 @@ export default function ChatRoomPage() {
                         Loading messages...
                     </p>
                 ) : (
-                    conversation.map((m) => (
-                        <div
-                            key={m.id}
-                            className={`message-row ${m.from === userId ? "own" : ""}`}
-                        >
-                            <div className="message-bubble">
-                                {m.content}
-                                {m.from === userId && renderTicks(m.status)}
+                    conversation.map((m, i) => {
+                        const prev = conversation[i - 1];
+                        const showDayDivider =
+                            !prev || formatDayLabel(m.timestamp) !== formatDayLabel(prev.timestamp);
+
+                        return (
+                            <div key={m.id}>
+                                {showDayDivider && (
+                                    <div className="day-divider">
+                                        <span>{formatDayLabel(m.timestamp)}</span>
+                                    </div>
+                                )}
+                                <div className={`message-row ${m.from === userId ? "own" : ""}`}>
+                                    <div className="message-bubble">
+                                        {m.content}
+                                        <div className="message-meta">
+                                            {formatMessageTime(m.timestamp)}
+                                            {m.from === userId && renderTicks(m.status)}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    ))
+                        );
+                    })
                 )}
                 <div ref={bottomRef} />
             </div>
